@@ -7,10 +7,13 @@ public class StatReset : MonoBehaviour
 {
     NavMeshAgent playerAI;
 
+    public Animator animator;
+
     public GameObject hungerResetObject;
     public GameObject sleepResetObject;
     public GameObject funResetObject;
     public float playerSpeed;
+    public float statMin = 90f;
 
     private Vector3 hungerResetObjectPosition;
     private Vector3 sleepResetObjectPosition;
@@ -30,18 +33,17 @@ public class StatReset : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(isWalking);
-        if (PlayerStat.sleepStatInt <= 80 && isWalking == false)
+        if (PlayerStat.sleepStatInt <= statMin && isWalking == false)
         {
             playerAI.SetDestination(sleepResetObjectPosition);
             isWalking = true;
         }
-        else if (PlayerStat.hungerStatInt <= 80 && isWalking == false)
+        else if (PlayerStat.hungerStatInt <= statMin && isWalking == false)
         {
             playerAI.SetDestination(hungerResetObjectPosition);
             isWalking = true;
         }
-        else if (PlayerStat.funStatInt <= 80 && isWalking == false)
+        else if (PlayerStat.funStatInt <= statMin && isWalking == false)
         {
             playerAI.SetDestination(funResetObjectPosition);
             isWalking = true;
