@@ -12,10 +12,13 @@ public class PlayerStat : MonoBehaviour
     public static int sleepStatInt;
     public static int funStatInt;
 
-
     [SerializeField] float timeToBeHunger = 100f;
     [SerializeField] float timeToBeSleep = 100f;
     [SerializeField] float timeToBeFun = 100f;
+
+    public static bool isHungerTick = true;
+    public static bool isSleepTick = true;
+    public static bool isFunTick = true;
 
     private void Awake()
     {
@@ -33,8 +36,11 @@ public class PlayerStat : MonoBehaviour
 
     private void HungerStat()
     {
-        hungerStat = hungerStat - (Time.deltaTime * (timeToBeHunger / 10));
-        hungerStatInt = Mathf.RoundToInt(hungerStat);
+        if(isHungerTick)
+        {
+            hungerStat = hungerStat - (Time.deltaTime * (timeToBeHunger / 10));
+            hungerStatInt = Mathf.RoundToInt(hungerStat);
+        }
 
         if (hungerStatInt < 0)
         {
@@ -44,8 +50,11 @@ public class PlayerStat : MonoBehaviour
 
     private void SleepStat()
     {
-        sleepStat = sleepStat - (Time.deltaTime * (timeToBeSleep / 10));
-        sleepStatInt = Mathf.RoundToInt(sleepStat);
+        if(isSleepTick)
+        {
+            sleepStat = sleepStat - (Time.deltaTime * (timeToBeSleep / 10));
+            sleepStatInt = Mathf.RoundToInt(sleepStat);
+        }
 
         if (sleepStatInt < 0)
         {
@@ -55,14 +64,15 @@ public class PlayerStat : MonoBehaviour
 
     private void FunStat()
     {
+        if(isFunTick)
         {
             funStat = funStat - (Time.deltaTime * (timeToBeFun / 10));
             funStatInt = Mathf.RoundToInt(funStat);
+        }
 
-            if (funStatInt < 0)
-            {
-                funStatInt = 0;
-            }
+        if (funStatInt < 0)
+        {
+            funStatInt = 0;
         }
     }
 }
