@@ -48,7 +48,7 @@ public class StatReset : MonoBehaviour
         GoToResetPoint();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         ResetStat(other);
     }
@@ -87,29 +87,20 @@ public class StatReset : MonoBehaviour
 
     private void ResetStat(Collider other)
     {
-        //1.3 - sleep 
-        //1 - hunger
-        //1 - fun
-
-        distanceToHunger = Vector3.Distance(gameObject.transform.position, hungerResetObjectPosition);
-        distanceToSleep = Vector3.Distance(gameObject.transform.position, sleepResetObjectPosition);
-        distanceToFun = Vector3.Distance(gameObject.transform.position, funResetObjectPosition);
-
-        //add distance and animation
         if (other.gameObject.tag == "HungerReset")
         {
-            StartCoroutine(WaitForHunger(waitForHunger));
             PlayerStat.isHungerTick = false;
+            StartCoroutine(WaitForHunger(waitForHunger));
         }
-        if (other.gameObject.tag == "SleepReset")
+        if(other.gameObject.tag == "SleepReset")
         {
-            StartCoroutine(WaitForSleep(waitForSleep));
             PlayerStat.isSleepTick = false;
+            StartCoroutine(WaitForSleep(waitForSleep));
         }
-        if (other.gameObject.tag == "FunReset")
+        if(other.gameObject.tag == "FunReset")
         {
-            StartCoroutine(WaitForFun(waitForFun));
             PlayerStat.isFunTick = false;
+            StartCoroutine(WaitForFun(waitForFun));
         }
     }
 
