@@ -7,10 +7,13 @@ using UnityEngine.AI;
 public class StatReset : MonoBehaviour
 {
     private LightScript lightScript;
-    
-    NavMeshAgent playerAI;
+    private NavMeshAgent playerAI;
+    private Animator animator;
+    private AudioSource audioSource;
 
-    public Animator animator;
+    public AudioClip sleepAudio;
+    public AudioClip hungryAudio;
+    public AudioClip funAudio;
 
     public GameObject hungerResetObject;
     public GameObject sleepResetObject;
@@ -33,6 +36,8 @@ public class StatReset : MonoBehaviour
     private Vector3 sleepResetObjectPosition;
     private Vector3 funResetObjectPosition;
 
+    private Vector3 currentPos;
+
     bool isWalking;
 
     private void Start()
@@ -44,6 +49,7 @@ public class StatReset : MonoBehaviour
         playerAI = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         lightScript = GetComponent<LightScript>();
+        audioSource = GetComponent<AudioSource>();
 
         GetResetPointPos();
     }
@@ -51,6 +57,7 @@ public class StatReset : MonoBehaviour
     private void Update()
     {
         GoToResetPoint();
+        currentPos = gameObject.transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -85,30 +92,21 @@ public class StatReset : MonoBehaviour
 
     private void GoToResetPoint()
     {
-        /*if (PlayerStat.sleepStatInt <= statMin && isWalking == false)
+        if (PlayerStat.sleepStatInt <= statMin)
         {
             playerAI.SetDestination(sleepResetObjectPosition);
-            isWalking = true;
         }
-        else if (PlayerStat.hungerStatInt <= statMin && isWalking == false)
+        else if (PlayerStat.hungerStatInt <= statMin)
         {
             playerAI.SetDestination(hungerResetObjectPosition);
-            isWalking = true;
         }
-        else if (PlayerStat.funStatInt <= statMin && isWalking == false)
+        else if (PlayerStat.funStatInt <= statMin)
         {
             playerAI.SetDestination(funResetObjectPosition);
-            isWalking = true;
         }
-        else
-        {
-            playerAI.SetDestination(funResetObjectPosition);
-            isWalking = true;
-        }
-        */
-        
-        
-        //DEBUG
+
+
+        /*//DEBUG
         if (Input.GetKeyDown(KeyCode.E))
         {
             playerAI.SetDestination(sleepResetObjectPosition);
@@ -123,7 +121,7 @@ public class StatReset : MonoBehaviour
         {
             playerAI.SetDestination(funResetObjectPosition);
             isWalking = true;
-        }
+        }*/
     }
 
     private void ResetStat(Collider other)
@@ -158,14 +156,18 @@ public class StatReset : MonoBehaviour
         yield return new WaitForSeconds(wait);
         PlayerStat.hungerStat = 100f;
         PlayerStat.isHungerTick = true;
-        isWalking = false;
+
+        audioSource.clip = hungryAudio;
+        audioSource.Play();
     }
     private IEnumerator WaitForSleep(float wait)
     {
         yield return new WaitForSeconds(wait);
         PlayerStat.sleepStat = 100f;
         PlayerStat.isSleepTick = true;
-        isWalking = false;
+
+        audioSource.clip = sleepAudio;
+        audioSource.Play();
     }
 
     private IEnumerator WaitForFun(float wait)
@@ -174,6 +176,8 @@ public class StatReset : MonoBehaviour
         PlayerStat.funStat = 100f;
         PlayerStat.isFunTick = true;
         playerAI.enabled = true;
-        isWalking = false;
+
+        audioSource.clip = funAudio;
+        audioSource.Play();
     }
 }
