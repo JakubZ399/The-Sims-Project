@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 746933347995617019}
   - component: {fileID: 746933347995617018}
   - component: {fileID: 746933347995617017}
+  - component: {fileID: 8821819959733135316}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -114,11 +115,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9486c95f549d8ca42ae22ea44dcef6c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   hungerResetObject: {fileID: 0}
   sleepResetObject: {fileID: 0}
   funResetObject: {fileID: 0}
+  funLookAt: {fileID: 0}
   playerSpeed: 15
   statMin: 90
+  waitForSleep: 2
+  waitForHunger: 2
+  waitForFun: 2
 --- !u!195 &746933347995617018
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -157,6 +163,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8821819959733135316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746933347995617016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9851b4d00837044b7fcc19a3fa5f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &130433278514866620
 PrefabInstance:
   m_ObjectHideFlags: 0
